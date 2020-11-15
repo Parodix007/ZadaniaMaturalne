@@ -1,2 +1,2 @@
 # ZadaniaMaturalne
-Repo z zadaniami maturalnymi z informatyki które rozwiązałem w Pythonie
+Repo z zadaniami maturalnymi z informatyki rozszerzonej które rozwiązałem w Pythonie
