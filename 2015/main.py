@@ -24,7 +24,7 @@ podzielne_przez_2 = []
 podzielne_przez_8 = []
 
 for liczba in otwieranie_pliku():
-	if int(liczba, 2) % 2 == 0 and int(liczba,2) % 8 == 0:
+	if int(liczba, 2) % 2 == 0 and int(liczba, 2) % 8 == 0:
 		podzielne_przez_8.append(liczba)
 		podzielne_przez_2.append(liczba)
 	elif int(liczba, 2) % 8 == 0:
