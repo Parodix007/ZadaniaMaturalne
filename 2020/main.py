@@ -11,43 +11,53 @@ class Matura2020:
                     array_of_numbers.append(liczba)
         return array_of_numbers
 
-    def get_prime_numbers(self, number_):
-        array_of_prime_numbers = []
-        for number in range(1,number_):
-            for num in range(1,number):
-                for num1 in range(1,num):
-                    if num % num1 != 0:
-                        continue
-                    else:
-                        break
-                array_of_prime_numbers.append(num)
-        return array_of_prime_numbers
+    def check_if_prime(self, number):
+        for num in range(2,number):
+            if number % num:
+                continue
+            else:
+                return False
+        return True
+    
+    def get_strings(self):
+        array_of_strings = []
+        with open(self.__file_name) as file:
+            for line in file.readlines():
+                string = line.split(" ")[1]
+                array_of_strings.append(string.strip("\n"))
+        return array_of_strings
+
+
 
 
 # Zadanie 4.1
-Maturka = Matura2020("./Dane_PR2/pary.txt")
+Maturka4_1 = Matura2020("./Dane_PR2/pary.txt")
 
-list_of_even_numbers = Maturka.get_even_numbers()
+list_of_even_numbers = Maturka4_1.get_even_numbers()
 numbers_and_sums = []
 for even_number in list_of_even_numbers:
-    prime_numbers = Maturka.get_prime_numbers(even_number)
-    print(f"{prime_numbers} \n")
-#     z = []
-#     for element in prime_numbers:
-#         outcome = element - even_number
-        
-#         for i in range(prime_numbers.index(element), len(prime_numbers)):
-#             if prime_numbers[i] == outcome * -1:
-#                 z.append((element, prime_numbers[i]))
-        
-#     if len(z) >= 2:
-#         top = z[0]
-        
-#         for i in range(1,len(z)):
-#             if z[i][0] - z[i][1] > top[0] - top[1]:
-#                 top = z[i]
-#         numbers_and_sums.append([even_number, top])
-#     elif len(z) == 1:
-#         numbers_and_sums.append(z.insert(0, even_number))
+    list_of_prime = []
+    for num in range(2, even_number):
+        if Maturka4_1.check_if_prime(num) == True:
+            list_of_prime.append(num)
+    list_of_sums = []
+    for value in list_of_prime:
+        for i in range(list_of_prime.index(value), len(list_of_prime)):
+            if value + list_of_prime[i] == even_number:
+                list_of_sums.append((value, list_of_prime[i]))
 
-# print(numbers_and_sums)
+    if len(list_of_sums) >= 2:
+        correct_tup = list_of_sums[0]
+        for tup in list_of_sums:
+            if (correct_tup[1] - correct_tup[0]) < (tup[1] - tup[0]):
+                correct_tup = tup
+        numbers_and_sums.append((even_number, correct_tup))
+    elif len(list_of_sums) == 1:
+        numbers_and_sums.append((even_number ,list_of_sums))
+
+#print(numbers_and_sums)
+
+#Zadanie 4.2
+Maturka4_2 = Matura2020("./Dane_PR2/pary.txt")
+strings = Maturka4_2.get_strings()
+print(strings)
