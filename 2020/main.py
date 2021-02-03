@@ -1,6 +1,7 @@
 class Matura2020:
-    def __init__(self, file_name):
-        self.__file_name = file_name
+    __file_name = './Dane_PR2/pary.txt'
+    def __init__(self):
+        pass
     
     def get_even_numbers(self):
         array_of_numbers = []
@@ -27,11 +28,41 @@ class Matura2020:
                 array_of_strings.append(string.strip("\n"))
         return array_of_strings
 
+    def search_for_pattern(self, string_):
+        patterns = []
+        
+        for item in set(string_):
+            amount = 1
+            
+            for i in range(list(string_).index(item)+1, len(string_)):
+                if string_[i] == item:
+                    amount+=1
+                else:
+                    break
+            
+            if amount >= 2:
+                patterns.append((item, amount))
+        
+        if len(patterns) > 0:
+            top = patterns[0]
+            
+            for tup in patterns:
+                if tup[1] > top[1]:
+                    top = tup
+                elif tup[1] == top[1]:
+                    if list(string_).index(tup[0]) < list(string_).index(top[0]):
+                        top = tup
+            number = list(string_).index(top[0])
+            return (string_[number: number + top[1]], top[1])
+        else:
+            return (string_[0], 1)
+
+
 
 
 
 # Zadanie 4.1
-Maturka4_1 = Matura2020("./Dane_PR2/pary.txt")
+Maturka4_1 = Matura2020()
 
 list_of_even_numbers = Maturka4_1.get_even_numbers()
 numbers_and_sums = []
@@ -58,6 +89,8 @@ for even_number in list_of_even_numbers:
 #print(numbers_and_sums)
 
 #Zadanie 4.2
-Maturka4_2 = Matura2020("./Dane_PR2/pary.txt")
+Maturka4_2 = Matura2020()
 strings = Maturka4_2.get_strings()
-print(strings)
+
+for item in strings:
+    print(Maturka4_2.search_for_pattern(item))
